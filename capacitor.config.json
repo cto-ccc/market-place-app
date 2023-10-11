@@ -1,0 +1,15 @@
+{
+  "appId": "com.countrychicken.farmersofccc",
+  "appName": "Farmers Of CCC",
+  "webDir": "build",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1000,
+      "launchAutoHide": true,
+      "backgroundColor": "#ffffffff",
+      "androidSplashResourceName": "splash",
+      "layoutName": "launch_screen"
+    }
+  }
+}

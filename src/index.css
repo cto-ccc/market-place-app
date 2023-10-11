@@ -5,9 +5,31 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #f9f9f9;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+.MuiButton-contained {
+  background-color: #a4243d !important;
+  text-transform: none !important;
+  color: white !important;
+}
+
+.MuiButton-outlined {
+  border-color: #a4243d !important;
+  text-transform: none !important;
+  color: #a4243d !important;
+}
+
+.itemdet-recipie-iframe iframe {
+  display: block;   
+  background: white;
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 10px;
 }

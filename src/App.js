@@ -1,24 +1,55 @@
 import logo from './logo.svg';
 import './App.css';
+import Authentication from './pages/Authentication';
+import { CommonProvider } from './contexts/CommonContext';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import FullPageLoader from './components/FullPageLoader';
+import AlertBox from './components/AlertBox';
+import RequireAuth from './components/RequireAuth';
+import { AuthContextProvider } from './contexts/AuthContext';
+import HomePage from './pages/HomePage';
+import AddClient from './pages/AddClient';
+import Client from './pages/Client';
+import NewOrder from './pages/NewOrder';
+import OrderDetails from './pages/OrderDetails';
+import ViewOrders from './pages/ViewOrders';
+import AddPayment from './pages/AddPayment';
+import ViewPayments from './pages/ViewPayments';
+import AllCategories from './pages/AllCategories';
+import Profile from './pages/Profile';
+import AllFarmers from './pages/AllFarmers';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CommonProvider>
+      <AuthContextProvider>
+      <Routes>
+        <Route element={<FullPageLoader />} >
+          <Route element={<AlertBox />} >
+            <Route path="/auth" element={<Authentication  />}/>
+
+            <Route element={<RequireAuth />} >
+              <Route path="/" element={<HomePage />}/>
+              <Route path="/addClient" element={<AddClient />}/>
+              <Route path="/client" element={<Client />}/>
+              <Route path="/newOrder" element={<NewOrder />}/>
+              <Route path="/orderDetail" element={<OrderDetails />}/>
+              <Route path="/viewOrders" element={<ViewOrders />}/>
+              <Route path="/addPayment" element={<AddPayment />}/>
+              <Route path="/viewPayments" element={<ViewPayments />}/>
+
+              <Route path="/profile" element={<Profile />}/>
+              <Route path="/allCategories" element={<AllCategories />}/>
+              <Route path="/allFarmers" element={<AllFarmers />}/>
+            </Route>
+
+
+          </Route>
+        </Route>
+      </Routes>
+      </AuthContextProvider>
+    </CommonProvider>
   );
 }
 

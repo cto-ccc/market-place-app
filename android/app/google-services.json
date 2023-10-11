@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "664863445744",
+    "project_id": "countrychickenadmin",
+    "storage_bucket": "countrychickenadmin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:664863445744:android:8f1adab68e856fd560e835",
+        "android_client_info": {
+          "package_name": "com.countrychicken.adminapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "664863445744-9jrtativdm8c7sjpd1pred44j93q3bdv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCxVfGsribTynWgmwijpddVBIDyKwGcvk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "664863445744-9jrtativdm8c7sjpd1pred44j93q3bdv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
