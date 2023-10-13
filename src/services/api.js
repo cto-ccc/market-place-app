@@ -608,3 +608,24 @@ export const getRecepieVideos = () => {
 
   ]
 }
+
+
+export const getTransactionData=(async(transactionsDataParams)=>{
+  return new Promise(async(resolve, reject) => {
+    const orderResp = await fetch(`${process.env.REACT_APP_CCC_SERVER_URL}/v1/getAllTransactions`, {
+      "method": "POST",
+      "headers": {
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": JSON.stringify(transactionsDataParams)
+    }).then((response) => response.json())
+    .then(function(data) { 
+      resolve(data)
+    })
+    .catch((error) => {
+      console.log(error)
+      reject(error)
+    }); 
+  })
+})

@@ -18,7 +18,7 @@ import ViewPayments from './pages/ViewPayments';
 import AllCategories from './pages/AllCategories';
 import Profile from './pages/Profile';
 import AllFarmers from './pages/AllFarmers';
-
+import ViewTransactions from './pages/ViewTransactions';
 
 function App() {
   return (
@@ -42,6 +42,7 @@ function App() {
               <Route path="/profile" element={<Profile />}/>
               <Route path="/allCategories" element={<AllCategories />}/>
               <Route path="/allFarmers" element={<AllFarmers />}/>
+              <Route path="/viewTransactions" element={<ViewTransactions />}/>
             </Route>
 
 
