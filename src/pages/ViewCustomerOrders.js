@@ -91,7 +91,7 @@ function ViewCustomerOrders() {
             </Button>
           </Box>
                         
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
               renderInput={(props) => <TextField sx={{width:'100%'}} {...props} />}
               inputFormat="DD/MM/YYYY"
@@ -108,7 +108,7 @@ function ViewCustomerOrders() {
                 setDateTime(newValue)
               }}
             />
-          </LocalizationProvider>
+          </LocalizationProvider> */}
           
         </Box>
         <Box>

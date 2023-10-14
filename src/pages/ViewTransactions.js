@@ -1,6 +1,6 @@
 import { TextField, Button, Box, createMuiTheme, useTheme, FormControl, Paper } from '@mui/material'
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { json, useLocation, useNavigate } from 'react-router-dom';
 import ComponentLoader from '../components/ComponentLoader';
 import { useContext, useEffect, useState } from 'react';
 import CallIcon from '@mui/icons-material/Call';
@@ -50,6 +50,8 @@ function ViewTransactions() {
       let newTxnResponse = []
       response.transactions.map((txn) => {
         txn.orderData = JSON.parse(txn.orderData)
+        //txn.addressDetails=JSON.parse(txn.addressDetails)
+        // txn.storeDetails=JSON.parse(txn.storeDetails)
         newTxnResponse.push(txn)
       })
       setTransactions(newTxnResponse)
@@ -98,7 +100,7 @@ function ViewTransactions() {
           </Box>
               </form>
             
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
               renderInput={(props) => <TextField sx={{width:'100%'}} {...props} />}
               inputFormat="DD/MM/YYYY"
@@ -115,7 +117,7 @@ function ViewTransactions() {
                 setDateTime(newValue)
               }}
             />
-          </LocalizationProvider>
+          </LocalizationProvider> */}
           
         </Box>
         <Box>
@@ -130,6 +132,10 @@ function ViewTransactions() {
                     Mobile Number :&nbsp;
                     {item.custMobile}
                   </Box>
+                  <Box mb={1}>
+                  Transaction Id  : &nbsp;
+                     {item.txnId} 
+                  </Box> 
                   <Box mb={1}>
                     Transaction Initiated At : &nbsp;
                     {new Date(item.inititatedAt).toLocaleString()}
@@ -148,17 +154,74 @@ function ViewTransactions() {
                   </Box> 
                   <Box mb={1}>
                     Order Amount : &nbsp;
-                    {item.orderAmount}
+                    {item.orderAmount}{' ₹'}
                   </Box>
                   <Box mb={1}>
                   Payment Mode : &nbsp;
                      {item.orderData?.paymentMode}
                   </Box> 
+
+                  <Box mb={1}>
+                   Delivery Type : &nbsp;
+                     {item.orderData?.deliveryType}
+                  </Box>
+                  <Box mb={1}>
+                   Shipping Cost : &nbsp;
+                     {item.orderData?.shippingCost}{' ₹'}
+                  </Box> 
+
+                  <Box mb={1}>
+                   Order Status : &nbsp;
+                     {item.orderData?.status}
+                  </Box> 
+                  <Box mb={1}>
+                   Customer Name : &nbsp;
+                     {item.orderData?.addressDetails?.userName} 
+                     
+                  </Box> 
+                  <Box mb={1}>
+                   Address Details : &nbsp;
+                     {item.orderData?.addressDetails?.houseDetails} {', '}
+                     {item.orderData?.addressDetails?.landmark} {', '}
+                     {item.orderData?.addressDetails?.streetDetails} {', '}
+                     {item.orderData?.addressDetails?.pincode}
+                  </Box> 
+
+                  <Box mb={1}>
+                   Coupon Code : &nbsp;
+                     {item.orderData?.couponCode} 
+                  </Box> 
+
+                  <Box mb={1}>
+                   Coupon Discount Amount : &nbsp;
+                     {item.orderData?.couponDiscountAmount} 
+                  </Box>
+                  <Box mb={1}>
+                   Store Name : &nbsp;
+                   {item.orderData?.storeDetails?.storeName}
+                  </Box>
                   
-                  {/* {item.orderData && item.orderData.map(data=>{
+
+                  <Box mb={1}>
+                   Product Information : &nbsp;
+                     {/* {item.orderData?.itemDetails[0]?.name}  */}
+                  
+                  
+                  
+                  {item.orderData?.itemDetails.map((data, index) => (
+                <Box mb={1} key={index}>
+                 
+                 Name :{data?.name}{', '}Price : {data?.price}{', '}Qty: {data?.count}{','}
+                </Box>
+              ))}
+</Box> 
+                   
+
+                  
+                  {/* {item.orderData?.addressDetails && item.orderData?.addressDetails.map(data=>{
                     <Box mb={1}>
                     Order Data : &nbsp;
-                    {data.userId}
+                    {data}
                   </Box>
                   })} */}
                               
