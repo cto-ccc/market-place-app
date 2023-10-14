@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import ComponentLoader from '../components/ComponentLoader';
 import { useContext, useEffect, useState } from 'react';
 import CallIcon from '@mui/icons-material/Call';
-import { getOrders, getTransactionData } from '../services/api';
+import { getOrders, getTransactionData, getViewCustomerOrdersData } from '../services/api';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
@@ -13,22 +13,22 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { CommonContext } from '../contexts/CommonContext';
 
 
-function ViewTransactions() {
+function ViewCustomerOrders() {
 
   const navigate = useNavigate()
   const location = useLocation()
 
   const { register, handleSubmit, control, reset, formState : {errors:errors} } = useForm()
   const { showLoader, hideLoader, showAlert, showSnackbar } = useContext(CommonContext)
-  const [transactions, setTransactions] = useState([])
+  const [customerOrders, setCustomerOrders] = useState([])
   const [dateTime, setDateTime]         = useState()
-  const [orderDataInfo, setOrderDataInfo]         = useState()
 
   useEffect(() => {
+    
     console.log(location.state)
   }, [])
 
-  const getUserTransactionData = async(formData) => {
+  const getUserOrdersData = async() => {
 
     // if (!dateTime) {
     //   showSnackbar("Please select date and time", "error")
@@ -41,20 +41,14 @@ function ViewTransactions() {
     // let selectedDate = new Date(dateTime)
     // selectedDate.setHours(0,0,0,0)
     let data = {
-      userId : formData.mobileNo
-    }
+      customerId: "2576",
+    };
     // if (location?.state?.clientId) data.clientId = location.state.clientId
 
-    getTransactionData(data).then((response) => {
+    getViewCustomerOrdersData(data).then((response) => {
       console.log(response)
-      let newTxnResponse = []
-      response.transactions.map((txn) => {
-        txn.orderData = JSON.parse(txn.orderData)
-        newTxnResponse.push(txn)
-      })
-      setTransactions(newTxnResponse)
+      setCustomerOrders(response)
       hideLoader()
-      
     })
 
   }
@@ -69,7 +63,7 @@ function ViewTransactions() {
           <Box mb={1}>
             Select delivery date and time
           </Box>
-          <form onSubmit={handleSubmit(getUserTransactionData)} key={1}>
+         
           <Box mb={3}>
                 <TextField
                   placeholder="Enter your mobile number"
@@ -80,24 +74,23 @@ function ViewTransactions() {
                  
                   type="number"
                   name="mobileNo"
-                  {...register("mobileNo", {
-                    required: "Required field",
-                    pattern: {
-                      value: /^[7896]\d{9}$/,
-                      message: "Invalid mobile number",
-                    },
-                  })}
-                  error={Boolean(errors?.mobileNo)}
-                  helperText={errors?.mobileNo?.message}
+                  // {...register("mobileNo", {
+                  //   required: "Required field",
+                  //   pattern: {
+                  //     value: /^[7896]\d{9}$/,
+                  //     message: "Invalid mobile number",
+                  //   },
+                  // })}
+                  // error={Boolean(errors?.mobileNo)}
+                  // helperText={errors?.mobileNo?.message}
                 />
               </Box>
               <Box mt={1}>
-            <Button type="submit" variant="contained" color="primary">
+            <Button  variant="contained" onClick={() => getUserOrdersData()}>
               Search
             </Button>
           </Box>
-              </form>
-            
+                        
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
               renderInput={(props) => <TextField sx={{width:'100%'}} {...props} />}
@@ -120,48 +113,40 @@ function ViewTransactions() {
         </Box>
         <Box>
           {
-            transactions.length ? 
+            customerOrders.length ? 
             <Box>
               {
-                transactions.map((item, index) => {
+                customerOrders.map((item, index) => {
                   return <Paper sx={{display:'flex', flexDirection:'column', margin:'10px 0', padding:'10px'}}
                   onClick={() => navigate('/orderDetail', {state : item})} key={index}>
                   <Box mb={1} sx={{fontWeight:'bold'}}>
-                    Mobile Number :&nbsp;
-                    {item.custMobile}
+                     Name :&nbsp;
+                    {item.f_name}
                   </Box>
-                  <Box mb={1}>
+                  {/* <Box mb={1}>
                     Transaction Initiated At : &nbsp;
-                    {new Date(item.inititatedAt).toLocaleString()}
-                  </Box>
-                  <Box mb={1}>
-                    Status : &nbsp;
-                    {item.status}
+                    {new Date(item.order_date).toLocaleString()}
+                  </Box> */}
+                  {/* <Box mb={1}>
+                    Payment Status : &nbsp;
+                    {item.payment_status}
                   </Box> 
                   <Box mb={1}>
-                    Order Id : &nbsp;
-                    {item.orderId}
+                    Email : &nbsp;
+                    {item.email}
                   </Box> 
                   <Box mb={1}>
-                    Platform : &nbsp;
-                    {item.platform}
+                    Mobile : &nbsp;
+                    {item.phone}
                   </Box> 
                   <Box mb={1}>
-                    Order Amount : &nbsp;
-                    {item.orderAmount}
-                  </Box>
-                  <Box mb={1}>
-                  Payment Mode : &nbsp;
-                     {item.orderData?.paymentMode}
-                  </Box> 
-                  
-                  {/* {item.orderData && item.orderData.map(data=>{
-                    <Box mb={1}>
-                    Order Data : &nbsp;
-                    {data.userId}
-                  </Box>
-                  })} */}
-                              
+                    Payment Method : &nbsp;
+                    {item.payment_method}
+                  </Box> */}
+                  {/* <Box mb={1}>
+                    Product Data : &nbsp;
+                    {item.products}
+                  </Box>              */}
                 </Paper>
                 })
               }
@@ -178,4 +163,4 @@ function ViewTransactions() {
   )
 }
 
-export default ViewTransactions
+export default ViewCustomerOrders
