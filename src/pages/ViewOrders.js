@@ -11,6 +11,18 @@ import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import InputAdornment from '@mui/material/InputAdornment';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { CommonContext } from '../contexts/CommonContext';
+import { margin } from '@mui/system';
+import {CSVLink} from "react-csv"
+// import * as XLSX from "xlsx";
+// import {saveAs} from "file-saver"
+
+
+
+
+
+  
+
+
 
 
 function ViewOrders() {
@@ -54,6 +66,29 @@ function ViewOrders() {
 
   }
 
+  // const handleDownload = ()=>{
+  //   // const ws = XLSX.utils.json_to_sheet(users)
+  //   // const wb = XLSX.utils.book_new()
+
+  //   // XLSX.utils.book_append_sheet(wb, ws ,'Sheet1')
+
+  //   // const options = {
+  //   //   bookType: 'xlsx',
+  //   //   mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  //   // };
+
+  //   // const blob = XLSX.write(wb, options)
+
+    
+  //   // saveAs(new Blob([blob], { type: options.mimeType }), 'example.xlsx');
+
+
+  // }
+
+  
+
+
+   
   return (
     <Box sx={{padding:'4vw'}}>
       <Box mb={2} mt={4} sx={{fontSize:'20px', fontWeight:'bold'}}>
@@ -103,10 +138,12 @@ function ViewOrders() {
             />
           </LocalizationProvider>
 
-          <Box mt={1}>
+          <Box mt={1} >
             <Button variant="contained" onClick={() => getProductOrders()}>
               Search
             </Button>
+            <Button variant='contained' sx={{marginX : "5px" , color : "white"}}><CSVLink data={users} className='download'>Download As Excel</CSVLink></Button>
+
           </Box>
         </Box>
         <Box>
@@ -145,4 +182,6 @@ function ViewOrders() {
   )
 }
 
-export default ViewOrders
+
+
+export default ViewOrders;
