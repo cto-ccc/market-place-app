@@ -22,6 +22,7 @@ function ViewCustomerOrders() {
   const { showLoader, hideLoader, showAlert, showSnackbar } = useContext(CommonContext)
   const [customerOrders, setCustomerOrders] = useState([])
   const [dateTime, setDateTime]         = useState()
+  const [mobileNo, setMobileNo] = useState('')
 
   useEffect(() => {
     
@@ -35,13 +36,11 @@ function ViewCustomerOrders() {
     //   return
     // }
 
-    
-
     showLoader()
     // let selectedDate = new Date(dateTime)
     // selectedDate.setHours(0,0,0,0)
     let data = {
-      customerId: "2576",
+      customerId: mobileNo,
     };
     // if (location?.state?.clientId) data.clientId = location.state.clientId
 
@@ -57,21 +56,22 @@ function ViewCustomerOrders() {
     
     <Box sx={{padding:'4vw'}}>
       <Box mb={2} mt={4} sx={{fontSize:'20px', fontWeight:'bold'}}>
-        Customer Transactions
+        Customer Orders
       </Box>
       <Box mb={3} mt={2}>
-          <Box mb={1}>
+          {/* <Box mb={1}>
             Select delivery date and time
-          </Box>
+          </Box> */}
          
           <Box mb={3}>
                 <TextField
-                  placeholder="Enter your mobile number"
+                  placeholder="Enter customer mobile number"
                   label="Mobile Number"
                   variant="outlined"
                   
                   autoComplete='off'
-                 
+                  onChange={(event) => setMobileNo(event.target.value)}
+
                   type="number"
                   name="mobileNo"
                   // {...register("mobileNo", {
@@ -123,30 +123,146 @@ function ViewCustomerOrders() {
                      Name :&nbsp;
                     {item.f_name}
                   </Box>
-                  {/* <Box mb={1}>
-                    Transaction Initiated At : &nbsp;
-                    {new Date(item.order_date).toLocaleString()}
-                  </Box> */}
-                  {/* <Box mb={1}>
-                    Payment Status : &nbsp;
-                    {item.payment_status}
-                  </Box> 
-                  <Box mb={1}>
-                    Email : &nbsp;
-                    {item.email}
-                  </Box> 
-                  <Box mb={1}>
-                    Mobile : &nbsp;
-                    {item.phone}
-                  </Box> 
-                  <Box mb={1}>
-                    Payment Method : &nbsp;
-                    {item.payment_method}
-                  </Box> */}
-                  {/* <Box mb={1}>
-                    Product Data : &nbsp;
-                    {item.products}
-                  </Box>              */}
+                  <Box mb={1} sx={{textTransform:'capitalize'}}>
+                    Order ID : {item.order_id}
+                  </Box>  
+                  <Box mb={1} sx={{textTransform:'capitalize', color:'#a4243d'}}>
+                    Status : {item.order_status}
+                  </Box>  
+                  <Box mb={1} sx={{fontWeight:'bold'}}>
+                   ₹ {item.order_amount + item.shipping_cost}
+                  </Box>
+                  <Box mb={1} sx={{fontSize:'10px'}}>
+                    {item.order_date}
+                  </Box>
+
+
+          <Box sx={{display:'flex', flexDirection:'column', mb:2}}>
+            <Box sx={{width:'60%', marginTop:'10px'}}>
+              Delivery Address: 
+            </Box>
+            <Box sx={{width:'100%', marginTop:'2px'}}>
+              { item.shippingAddressDataa.length > 0 &&
+                item.shippingAddressDataa[0].contact_person_name + ', ' 
+                +  item.shippingAddressDataa[0].address + ', ' 
+                +  item.shippingAddressDataa[0].city + ', '
+                + item.shippingAddressDataa[0].state + ', '
+                + item.shippingAddressDataa[0].zip
+              }
+            </Box>
+          </Box>
+
+          {
+            item.deliveryPersonInfo?.length ?
+            <Box sx={{mb:2}}>
+              <Box>
+                Delivery Partner Assigned :                     
+              </Box>
+              <Box>
+                { item.deliveryPersonInfo[0].firstName + ' ' + item.deliveryPersonInfo[0].lastName}
+              </Box>
+              <Box>
+                { item.deliveryPersonInfo[0].phone}
+              </Box>
+            </Box> : null
+          } 
+
+
+          <Box sx={{display:'flex', fontWeight:'bold', fontSize:'12px'}} mb={1}>
+            <Box sx={{width:'50%'}}>
+              Item Name
+            </Box>
+            <Box sx={{width:'15%'}}>
+              Price
+            </Box>
+            <Box sx={{width:'15%', textAlign:'center'}}>
+              Qty
+            </Box>
+            <Box sx={{width:'20%', textAlign:'right'}}>
+              Total
+            </Box>
+          </Box>
+          
+
+                  {
+            item.products.map((item, index) => {
+              return <Box key={index} sx={{display:'flex', fontSize:'12px'}} mb={1}>
+                <Box sx={{width:'50%', textTransform:'capitalize'}}>
+                  {item.name.toLowerCase()}
+                </Box>
+                <Box sx={{width:'15%'}}>
+                ₹{item.price}
+                </Box>
+                <Box sx={{width:'15%', textAlign:'center'}}>
+                  {item.quantity}
+                </Box>
+                <Box sx={{width:'20%', textAlign:'right'}}>
+                ₹ {item.quantity * item.price}
+                </Box>
+
+
+
+
+
+
+
+
+
+              </Box>
+            })
+          }
+
+
+
+<Box sx={{display:'flex', borderTop:'1px solid #eaeaea', justifyContent:'space-between', fontSize:'12px'}} pt={2}>
+            <Box sx={{width:'50%'}}>
+            Coupon Discount
+            </Box>
+            <Box sx={{width:'15%'}}>
+
+            </Box>
+            <Box sx={{width:'20%', textAlign:'right'}}>
+            - ₹ {
+                (item?.coupon_discount_amount || 0)
+              }
+            </Box>
+          </Box>
+
+
+          <Box sx={{display:'flex', justifyContent:'space-between', fontSize:'12px'}} mt={1}>
+            <Box sx={{width:'50%'}}>
+            Delivery Cost 
+            </Box>
+            <Box sx={{width:'15%'}}>
+
+            </Box>
+            <Box sx={{width:'20%', textAlign:'right'}}>
+             ₹ {
+                item?.shipping_cost
+              }
+
+            </Box>
+          </Box>
+
+
+          <Box sx={{display:'flex', fontWeight:'bold', borderTop:'1px solid #eaeaea', fontSize:'12px'}} mt={1} pt={1}>
+            <Box sx={{width:'50%'}}>
+              Total
+            </Box>
+            <Box sx={{width:'15%'}}>
+
+            </Box>
+            <Box sx={{width:'15%', textAlign:'center'}}>
+              &nbsp;
+            </Box>
+            <Box sx={{width:'20%', textAlign:'right'}}>
+             ₹ {
+                item.order_amount + item.shipping_cost
+              }
+            </Box>
+          </Box>
+
+
                 </Paper>
                 })
               }

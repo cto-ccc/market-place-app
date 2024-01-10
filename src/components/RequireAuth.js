@@ -67,7 +67,7 @@ function RequireAuth() {
         <>
           {
             login ?
-            <><div><div style={styles.outletCont}><Outlet /></div><div><BottomNavBar /></div> </div></>  :
+            <><div><div style={styles.outletCont}><Outlet /></div></div></>  :
             <Navigate to="/auth" replace="true"/>
           }
         </>

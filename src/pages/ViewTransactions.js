@@ -68,9 +68,7 @@ function ViewTransactions() {
         Customer Transactions
       </Box>
       <Box mb={3} mt={2}>
-          <Box mb={1}>
-            Select delivery date and time
-          </Box>
+        
           <form onSubmit={handleSubmit(getUserTransactionData)} key={1}>
           <Box mb={3}>
                 <TextField
@@ -140,7 +138,7 @@ function ViewTransactions() {
                     Transaction Initiated At : &nbsp;
                     {new Date(item.inititatedAt).toLocaleString()}
                   </Box>
-                  <Box mb={1}>
+                  <Box mb={1} sx={{color:'#a4243d'}}>
                     Status : &nbsp;
                     {item.status}
                   </Box> 
@@ -154,21 +152,21 @@ function ViewTransactions() {
                   </Box> 
                   <Box mb={1}>
                     Order Amount : &nbsp;
-                    {item.orderAmount}{' ₹'}
+                    ₹ {item.orderAmount + item.orderData?.shippingCost}
                   </Box>
-                  <Box mb={1}>
+                  {/* <Box mb={1}>
                   Payment Mode : &nbsp;
                      {item.orderData?.paymentMode}
-                  </Box> 
+                  </Box>  */}
 
                   <Box mb={1}>
                    Delivery Type : &nbsp;
                      {item.orderData?.deliveryType}
                   </Box>
-                  <Box mb={1}>
+                  {/* <Box mb={1}>
                    Shipping Cost : &nbsp;
                      {item.orderData?.shippingCost}{' ₹'}
-                  </Box> 
+                  </Box>  */}
 
                   <Box mb={1}>
                    Order Status : &nbsp;

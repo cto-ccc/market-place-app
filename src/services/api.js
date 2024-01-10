@@ -633,7 +633,7 @@ export const getTransactionData=(async(transactionsDataParams)=>{
 
 export const getViewCustomerOrdersData=(async(viewCustomerOrdersDataParams)=>{
   return new Promise(async(resolve, reject) => {
-    const orderResp = await fetch(`${process.env.REACT_APP_CCC_SERVER_URL}/getUserOrders`, {
+    const orderResp = await fetch(`${process.env.REACT_APP_CCC_SERVER_URL}/getUserOrdersByMobile`, {
       "method": "POST",
       "headers": {
         "content-type": "application/json",
@@ -642,6 +642,51 @@ export const getViewCustomerOrdersData=(async(viewCustomerOrdersDataParams)=>{
       },
       "body": JSON.stringify({
         userData: viewCustomerOrdersDataParams})
+    }).then((response) => response.json())
+    .then(function(data) { 
+      resolve(data)
+    })
+    .catch((error) => {
+      console.log(error)
+      reject(error)
+    }); 
+  })
+})
+
+
+export const getUsersByTime=(async(data)=>{
+  return new Promise(async(resolve, reject) => {
+    const orderResp = await fetch(`${process.env.REACT_APP_CCC_SERVER_URL}/getUsersByTime`, {
+      "method": "POST",
+      "headers": {
+        "content-type": "application/json",
+        "accept": "application/json",
+        "Merchant_Key": "DF0911D0-5588-43A2-A3F2-99966F149314",
+      },
+      "body": JSON.stringify({
+        queryData: data})
+    }).then((response) => response.json())
+    .then(function(data) { 
+      resolve(data)
+    })
+    .catch((error) => {
+      console.log(error)
+      reject(error)
+    }); 
+  })
+})
+
+export const getEnquiries=(async(data)=>{
+  return new Promise(async(resolve, reject) => {
+    const orderResp = await fetch(`${process.env.REACT_APP_CCC_SERVER_URL}/getContactQueries`, {
+      "method": "POST",
+      "headers": {
+        "content-type": "application/json",
+        "accept": "application/json",
+        "Merchant_Key": "DF0911D0-5588-43A2-A3F2-99966F149314",
+      },
+      "body": JSON.stringify({
+        queryData: data})
     }).then((response) => response.json())
     .then(function(data) { 
       resolve(data)

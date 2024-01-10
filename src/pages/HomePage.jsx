@@ -9,6 +9,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { CommonContext } from '../contexts/CommonContext';
 import stockpolice from '../assets/stockpolice_white.png'
+import Header from '../components/Header';
 
 function HomePage() {
 
@@ -65,9 +66,10 @@ function HomePage() {
     <Box sx={{padding:'4vw'}}>
       {
         loading ? <ComponentLoader /> : 
-        <Box>
-          <h2>Farmers Of CCC</h2>
-          <Box sx={{marginLeft:'5vw', mb:1}}>Select a farmer</Box>
+        <Box mt={6}>
+                 <Header /> 
+          <h2>Welcome, CCC Admin</h2>
+          {/* <Box sx={{marginLeft:'5vw', mb:1}}>Select a farmer</Box>
           <Box sx={{display:'flex', flexDirection:'column', mb:4, alignItems:'center'}}>
             
             {
@@ -107,6 +109,36 @@ function HomePage() {
             <Button onClick={() => navigate('/addClient')} variant="outlined">
               Add New Farmer
             </Button>
+          </Box>   */}
+
+          <Box mt={6}>
+            <Button onClick={() => navigate('/viewCustomerOrders')} variant="contained">
+              Customer Orders
+            </Button>
+          </Box>  
+
+          <Box mt={2}>
+            <Button onClick={() => navigate('/viewTransactions')} variant="contained">
+              Customer Transactions
+            </Button>
+          </Box>  
+
+          <Box mt={2}>
+            <Button onClick={() => navigate('/viewOrders')} variant="contained">
+              Signup Data
+            </Button>
+          </Box>  
+
+          <Box mt={2}>
+            <Button onClick={() => navigate('/sendNotification')} variant="contained">
+              Push Notification
+            </Button>
+          </Box>  
+
+          <Box mt={2}>
+            <Button onClick={() => navigate('/viewEnquiries')} variant="contained">
+              Contact Us Queries
+            </Button>
           </Box>  
 
           {/* <Box>
@@ -134,7 +166,7 @@ function HomePage() {
       }
 
 
-        <Box>
+        {/* <Box>
           <Box sx={{fontSize:'25px', marginTop:'20px', marginBottom:'20px', color:'#a4243d'}}>
             Farming Videos
           </Box>
@@ -155,7 +187,7 @@ function HomePage() {
               })
             }
           </Grid>
-        </Box>
+        </Box> */}
 
     </Box>
   )

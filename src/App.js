@@ -20,6 +20,9 @@ import Profile from './pages/Profile';
 import AllFarmers from './pages/AllFarmers';
 import ViewTransactions from './pages/ViewTransactions';
 import ViewCustomerOrders from './pages/ViewCustomerOrders';
+import Header from './components/Header';
+import ViewEnquiries from './pages/ViewEnquiries';
+import SendNotification from './pages/SendNotification';
 
 function App() {
   return (
@@ -28,9 +31,10 @@ function App() {
       <Routes>
         <Route element={<FullPageLoader />} >
           <Route element={<AlertBox />} >
+          <Route element={<Header />}>
             <Route path="/auth" element={<Authentication  />}/>
 
-            <Route element={<RequireAuth />} >
+            {/* <Route element={<RequireAuth />} > */}
               <Route path="/" element={<HomePage />}/>
               <Route path="/addClient" element={<AddClient />}/>
               <Route path="/client" element={<Client />}/>
@@ -45,10 +49,13 @@ function App() {
               <Route path="/allFarmers" element={<AllFarmers />}/>
               <Route path="/viewTransactions" element={<ViewTransactions />}/>
               <Route path="/viewCustomerOrders" element={<ViewCustomerOrders />}/>
-            </Route>
+              <Route path="/viewEnquiries" element={<ViewEnquiries />}/>
+              <Route path="/sendNotification" element={<SendNotification />}/>
+            {/* </Route> */}
 
 
           </Route>
+        </Route>
         </Route>
       </Routes>
       </AuthContextProvider>

@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius:'5px'
   },
   logoImg : {
-    width : '80vw'
+    width : '40vw'
   },
   logoImgCont : {
     textAlign : 'center',

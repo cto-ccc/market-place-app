@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { useEffect, createContext, useState } from 'react'
 
 export const CommonContext = createContext()
 
@@ -14,6 +14,17 @@ export const CommonProvider = (props) => {
   const [snackbarText, setSnackbarText] = useState('')
   const [snackbarType, setSnackbarType] = useState('success')
 
+  const [isDesktop, setIsDesktop] = useState(
+    window.matchMedia("(min-width: 768px)").matches
+  )
+
+  useEffect(() => {
+    window
+    .matchMedia("(min-width: 768px)")
+    .addEventListener('change', e => setIsDesktop( e.matches ))
+  }, [])
+
+  
   const showLoader = (loadingText) => {
     setLoadingText(loadingText)
     setLoader(true)
@@ -59,6 +70,7 @@ export const CommonProvider = (props) => {
     snackbarText,
     showSnackbar,
     hideSnackbar,
+    isDesktop,
     snackbarType,
     setSnackbarType
   }

@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import ComponentLoader from '../components/ComponentLoader';
 import { useContext, useEffect, useState } from 'react';
 import CallIcon from '@mui/icons-material/Call';
-import { getOrders, getUsersByTime } from '../services/api';
+import { getEnquiries, getOrders, getUsersByTime } from '../services/api';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
@@ -13,7 +13,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { CommonContext } from '../contexts/CommonContext';
 
 
-function ViewOrders() {
+function ViewEnquiries() {
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -45,19 +45,17 @@ function ViewOrders() {
       fromTs : selectedFromDate.getTime(),
       toTs   : selectedToDate.getTime()
     }
-    getUsersByTime(data).then((response) => {
+    getEnquiries(data).then((response) => {
       console.log(response)
       setUsers(response.usersData)
       hideLoader()
     })
-
-
   }
 
   return (
     <Box sx={{padding:'4vw'}}>
       <Box mb={2} mt={4} sx={{fontSize:'20px', fontWeight:'bold'}}>
-        Customer Signup Data
+        User Enquiry Data
       </Box>
       <Box mb={3} mt={2}>
           <Box mb={1}>
@@ -110,7 +108,6 @@ function ViewOrders() {
           </Box>
         </Box>
         <Box>
-          Total Count : {users.length}
           {
             users.length ? 
             <Box>
@@ -119,17 +116,20 @@ function ViewOrders() {
                   return <Paper sx={{display:'flex', flexDirection:'column', margin:'10px 0', padding:'10px'}}
                   onClick={() => navigate('/orderDetail', {state : item})} key={index}>
                   <Box mb={1} sx={{fontWeight:'bold'}}>
-                    {item.f_name}
+                    {item.firstName} {item.lastName}
                   </Box>
                   <Box mb={1} sx={{fontWeight:'bold'}}>
-                    {item.mobileNo}
-                  </Box>    
+                    {item.userMsg} 
+                  </Box>
+                  <Box mb={1} sx={{fontWeight:'bold'}}>
+                    {item.mobileNo} 
+                  </Box>
+                  <Box mb={1} sx={{fontWeight:'bold'}}>
+                    {item.email} 
+                  </Box>
                   <Box mb={1}>
                     {new Date(item.timeStamp).toLocaleString()}
-                  </Box>   
-                  <Box mb={1}>
-                    {item.deviceToken ? 'App' : 'Website'}
-                  </Box>             
+                  </Box>
                 </Paper>
                 })
               }
@@ -145,4 +145,4 @@ function ViewOrders() {
   )
 }
 
-export default ViewOrders
+export default ViewEnquiries

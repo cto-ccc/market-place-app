@@ -64,9 +64,9 @@ function FullPageLoader() {
         </Snackbar>        
       }
 
-      {
+      {/* {
         Capacitor.getPlatform() == 'web' ? null : <BottomNavBar />
-      }
+      } */}
 
       <Outlet />
     </>
