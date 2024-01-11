@@ -187,7 +187,6 @@ const [volumes, setVolumes] = useState({
                           </Box>
                           <Box>
                           ₹ {location.state.orderItems[mainItem][subItem][volume]} /-
-                            <Link to={`/edit-price/${clientDet._id}`}><Button>Edit Price</Button></Link>
                           </Box>
                         </Box>
                       })

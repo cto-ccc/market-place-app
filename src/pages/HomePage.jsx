@@ -142,8 +142,8 @@ function HomePage() {
           </Box>  
 
           <Box mt={2}>
-            <Button onClick={() => navigate('/orderDetail')} variant="contained">
-              Order Details
+            <Button onClick={() => navigate('/edit-price')} variant="contained">
+              Edit Price
             </Button>
           </Box>  
 

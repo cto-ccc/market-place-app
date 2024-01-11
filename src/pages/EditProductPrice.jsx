@@ -1,27 +1,87 @@
 import React, { useEffect, useState } from 'react';
-import {Box , Button , TextField} from "@mui/material"
-import {useParams} from "react-router-dom"
+import { Box , TextField } from '@mui/material';
+import {useForm } from "react-hook-form"
 
 const EditProductPrice = () => {
-    const params = useParams();
-  const [newPrice, setNewPrice] = useState(0);
+  const [productDetails, setProductDetails] = useState(0);
+  const {handleSubmit : updateProductSubmit , formState : {errors : productError} , register : registerProducts} = useForm()
 
-  useEffect(async ()=>{
-    const newPrice = await fetch(`/${params.produtId}`)
+  useEffect( async()=>{
+    const newPrice = await fetch(`https://api.countrychickenco.in/v2/getLanding` , {
+      method : "POST",
+      headers : {
+        "Content-Type" : "application/json",
+
+      },
+      body : JSON.stringify({"userData" : {
+        "packageVersion": "6.0.0",
+        "platform": "web",
+        "userMobile" : null
+      }})
+    })
     const data = await newPrice.json();
-    setNewPrice(data)
-  },[params.produtId])
+    setProductDetails(data)
+  },[])
 
-  const handleUpdate = () => {
-    
-  };
+  console.log(productDetails);
+
+
+const onUpdateSubmit  = ()=>{
+
+}
 
   return (
-    <Box  sx={{display : "flex" , flexDirection: "column" , gap : "4px" , maxWidth : "500px" , margin : "auto" , marginTop : "50px"}}>
-      <h2 className='margin : 50px'>Edit Product Price</h2>
-      <TextField id="outlined-basic" label="New Price:" variant="outlined"  type='number' value={newPrice}  onChange={(e) => setNewPrice(e.target.value)}/>
-      <Button sx={{mt : "10px"}} variant='contained' onClick={handleUpdate}>Update Price</Button>
-    </Box>
+      <form onSubmit={updateProductSubmit(onUpdateSubmit)} style={{ maxWidth : "500px" , margin: "auto"}}>
+          <Box mt={"70px"}  flex flexDirection={"column"}>
+          <Box sx={{fontSize:'20px', pb:1, mb:2, borderBottom:'1px solid #eaeaea'}}>
+            Product Details
+          </Box>
+            <Box mb={3}>
+              <TextField
+                label="Title"
+                variant="outlined"
+                
+                autoFocus
+                autoComplete='off'
+                name="title"
+                value={productDetails.title}
+                {...registerProducts("title", {
+                  required: "Required field"
+                })}
+                error={Boolean(productError?.title)}
+                helperText={productError?.title?.message}
+              />
+              <TextField
+                label="MRP"
+                variant="outlined"
+                
+                autoFocus
+                autoComplete='off'
+                name="mrp"
+                value={productDetails.title}
+                {...registerProducts("mrp", {
+                  required: "Required field"
+                })}
+                error={Boolean(productError?.title)}
+                helperText={productError?.title?.message}
+              />
+              <TextField
+                label="Price"
+                variant="outlined"
+                
+                autoFocus
+                autoComplete='off'
+                name="price"
+                value={productDetails.title}
+                {...registerProducts("price", {
+                  required: "Required field"
+                })}
+                error={Boolean(productError?.title)}
+                helperText={productError?.title?.message}
+              />
+            </Box>
+          </Box>  
+      </form>
   );
 };
 

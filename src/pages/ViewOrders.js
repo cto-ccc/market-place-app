@@ -40,11 +40,11 @@ function ViewOrders() {
   }, [])
 
   useEffect(()=>{
-
-    const extractedExcelData = users.map(({f_name , mobileNo , customerId})=>({f_name , mobileNo , customerId}))
+    const extractedExcelData = users.map(({f_name , mobileNo , customerId , timeStamp})=>({f_name , mobileNo , customerId ,datestamps:new Date(timeStamp * 1000).toLocaleString('en-US' , {year : "numeric" , month : "numeric" , day : "numeric" , hour : "numeric" , minute : "numeric" , second : "numeric" , hour12 : true}) }))
     setExcelData(extractedExcelData)
 
   },[users])
+
 
   const getProductOrders = async() => {
 

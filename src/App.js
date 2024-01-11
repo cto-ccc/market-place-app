@@ -53,7 +53,7 @@ function App() {
               <Route path="/viewCustomerOrders" element={<ViewCustomerOrders />}/>
               <Route path="/viewEnquiries" element={<ViewEnquiries />}/>
               <Route path="/sendNotification" element={<SendNotification />}/>
-              <Route path='/edit-price/:productId' element={<EditProductPrice/>}/>
+              <Route path='/edit-price' element={<EditProductPrice/>}/>
             {/* </Route> */}
 
 
