@@ -23,6 +23,7 @@ import ViewCustomerOrders from './pages/ViewCustomerOrders';
 import Header from './components/Header';
 import ViewEnquiries from './pages/ViewEnquiries';
 import SendNotification from './pages/SendNotification';
+import EditProductPrice from "./pages/EditProductPrice";
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
               <Route path="/viewCustomerOrders" element={<ViewCustomerOrders />}/>
               <Route path="/viewEnquiries" element={<ViewEnquiries />}/>
               <Route path="/sendNotification" element={<SendNotification />}/>
+              <Route path='/edit-price/:productId' element={<EditProductPrice/>}/>
             {/* </Route> */}
 
 

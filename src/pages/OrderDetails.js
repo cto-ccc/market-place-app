@@ -1,6 +1,6 @@
 import { TextField, Button, Box, createMuiTheme, InputLabel, useTheme, FormControl, Paper, MenuItem } from '@mui/material'
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ComponentLoader from '../components/ComponentLoader';
 import { useContext, useEffect, useState } from 'react';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -83,11 +83,12 @@ const [volumes, setVolumes] = useState({
   }, [])
 
   const getClientInfo = async() => {
-    getClientDetails(location.state.clientId).then((response) => {
-      console.log(response)
-      setClientDet(response)
-      setLoading(false)
-    })  
+      getClientDetails(location.state.clientId).then((response) => {
+        console.log(response)
+        setClientDet(response)
+        setLoading(false)
+      })  
+    
   }
 
   const changeOrderStatus = async() => {
@@ -186,6 +187,7 @@ const [volumes, setVolumes] = useState({
                           </Box>
                           <Box>
                           ₹ {location.state.orderItems[mainItem][subItem][volume]} /-
+                            <Link to={`/edit-price/${clientDet._id}`}><Button>Edit Price</Button></Link>
                           </Box>
                         </Box>
                       })

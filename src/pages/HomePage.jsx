@@ -141,6 +141,14 @@ function HomePage() {
             </Button>
           </Box>  
 
+          <Box mt={2}>
+            <Button onClick={() => navigate('/orderDetail')} variant="contained">
+              Order Details
+            </Button>
+          </Box>  
+
+          
+
           {/* <Box>
             <Box mt={2} sx={{fontSize:'20px'}}>
              Today Live Orders
