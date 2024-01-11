@@ -13,8 +13,6 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { CommonContext } from '../contexts/CommonContext';
 import { margin } from '@mui/system';
 import {CSVLink} from "react-csv"
-// import * as XLSX from "xlsx";
-// import {saveAs} from "file-saver"
 
 
 
@@ -35,10 +33,18 @@ function ViewOrders() {
   const [dateTime, setDateTime]         = useState()
   const [toDateTime, setToDateTime]         = useState()
   const [users, setUsers] = useState([])
+  const [excelData , setExcelData] = useState([])
 
   useEffect(() => {
     console.log(location.state)
   }, [])
+
+  useEffect(()=>{
+
+    const extractedExcelData = users.map(({f_name , mobileNo , customerId})=>({f_name , mobileNo , customerId}))
+    setExcelData(extractedExcelData)
+
+  },[users])
 
   const getProductOrders = async() => {
 
@@ -66,28 +72,10 @@ function ViewOrders() {
 
   }
 
-  // const handleDownload = ()=>{
-  //   // const ws = XLSX.utils.json_to_sheet(users)
-  //   // const wb = XLSX.utils.book_new()
-
-  //   // XLSX.utils.book_append_sheet(wb, ws ,'Sheet1')
-
-  //   // const options = {
-  //   //   bookType: 'xlsx',
-  //   //   mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-  //   // };
-
-  //   // const blob = XLSX.write(wb, options)
-
-    
-  //   // saveAs(new Blob([blob], { type: options.mimeType }), 'example.xlsx');
-
-
-  // }
 
   
 
-
+  
    
   return (
     <Box sx={{padding:'4vw'}}>
@@ -142,7 +130,8 @@ function ViewOrders() {
             <Button variant="contained" onClick={() => getProductOrders()}>
               Search
             </Button>
-            <Button variant='contained' sx={{marginX : "5px" , color : "white"}}><CSVLink data={users} className='download'>Download As Excel</CSVLink></Button>
+            
+            <Button variant='contained' sx={{marginX : "5px" , color : "white"}}><CSVLink data={excelData} filename='SignupExcelData.csv' className='download'>Download As Excel</CSVLink></Button>
 
           </Box>
         </Box>
