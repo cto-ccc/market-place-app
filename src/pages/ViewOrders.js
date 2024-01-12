@@ -16,13 +16,6 @@ import {CSVLink} from "react-csv"
 
 
 
-
-
-  
-
-
-
-
 function ViewOrders() {
 
   const navigate = useNavigate()
@@ -40,9 +33,17 @@ function ViewOrders() {
   }, [])
 
   useEffect(()=>{
-    const extractedExcelData = users.map(({f_name , mobileNo , customerId , timeStamp})=>({f_name , mobileNo , customerId ,datestamps:new Date(timeStamp * 1000).toLocaleString('en-US' , {year : "numeric" , month : "numeric" , day : "numeric" , hour : "numeric" , minute : "numeric" , second : "numeric" , hour12 : true}) }))
+    const extractedExcelData = []
+    users.forEach((user) => {
+      extractedExcelData.push({
+        fullName : user.f_name,
+        mobileNo : user.mobileNo,
+        source : user.deviceToken ? 'APP' : 'WEBSITE',
+        pranaId : user.customerId,
+        registeredOn : new Date(user.timeStamp).toLocaleString()
+      })
+    })
     setExcelData(extractedExcelData)
-
   },[users])
 
 
@@ -64,19 +65,11 @@ function ViewOrders() {
       toTs   : selectedToDate.getTime()
     }
     getUsersByTime(data).then((response) => {
-      console.log(response)
       setUsers(response.usersData)
       hideLoader()
     })
-
-
   }
 
-
-  
-
-  
-   
   return (
     <Box sx={{padding:'4vw'}}>
       <Box mb={2} mt={4} sx={{fontSize:'20px', fontWeight:'bold'}}>
@@ -126,7 +119,7 @@ function ViewOrders() {
             />
           </LocalizationProvider>
 
-          <Box mt={1} >
+          <Box mt={1}>
             <Button variant="contained" onClick={() => getProductOrders()}>
               Search
             </Button>
